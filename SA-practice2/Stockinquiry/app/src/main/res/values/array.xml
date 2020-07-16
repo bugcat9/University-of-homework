@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="charts">
+        <item>线性图</item>
+        <item>柱状图</item>
+        <item>条形图</item>
+    </string-array>
+</resources>

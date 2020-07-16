@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/tab_friend"
+        android:icon="@drawable/ic_friend"
+        android:title="好友"
+        />
+
+    <item
+        android:id="@+id/tab_group"
+        android:icon="@drawable/ic_group"
+        android:title="群聊"
+        />
+
+</menu>

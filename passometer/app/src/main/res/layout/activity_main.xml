@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical" >
+
+    <CheckedTextView
+        android:id="@+id/AT"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/AT"
+        android:textSize="20dp" />
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <Button
+            android:id="@+id/Button_Write"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/Button_Write"
+            android:textSize="20dp"/>
+        <Button
+            android:id="@+id/Button_Stop"
+            android:layout_weight="1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/Button_Stop" android:textSize="20dp"/>
+    </LinearLayout>
+   <TextView
+       android:id="@+id/StepNum"
+       android:layout_width="match_parent"
+       android:layout_height="wrap_content"
+       android:text="步数："
+       android:gravity="center"/>
+    <com.github.mikephil.charting.charts.LineChart
+        android:id="@+id/linechart"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:layout_gravity="center_horizontal">
+    </com.github.mikephil.charting.charts.LineChart>
+
+</LinearLayout>

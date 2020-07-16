@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item android:id="@+id/line_item"
+        android:title="折线图"
+        app:showAsAction="never"/>
+
+    <item android:id="@+id/bar_item"
+        android:title="柱状图"
+        app:showAsAction="never"/>
+
+    <!--<item android:id="@+id/pie_item"-->
+        <!--android:title="饼状图"-->
+        <!--app:showAsAction="never"/>-->
+
+
+</menu>

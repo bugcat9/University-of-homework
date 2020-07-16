@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">passometer</string>
+    <string name="hello">Hello World, PracticeActivity!</string>
+    <string name="onAccuracyChanged">onAccuracyChanged doesn’t detonate</string>
+    <string name="AT">0</string>
+    <string name="Button_Write">开始计步</string>
+    <string name="Button_Stop">停止计步</string>
+</resources>
