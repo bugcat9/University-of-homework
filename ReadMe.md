@@ -9,4 +9,6 @@
 * SA-practice1是软件体系结构实习一
 * SA-practice2是软件体系结构实习二
 * SA-practice3是软件体系结构实习三
+* BMP为算法实习一
+* QTSync为数据结构大实习哈希树
 
