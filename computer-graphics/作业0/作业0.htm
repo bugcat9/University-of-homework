@@ -1,0 +1,138 @@
+<HTML><HEAD><TITLE>Computer Graphics (Programming Assignment 0)</TITLE>
+<META http-equiv=Content-Type content="text/html; charset=gb2312">
+</HEAD>
+<BODY>
+<DIV align=center><BR>
+<TABLE cellSpacing=0 cellPadding=0 width=640 border=0>
+  <TBODY>
+  <TR vAlign=bottom>
+    <TD align=left><span class="header">计算机图形学</span></TD>
+    <TD align=right><SPAN class=header>&nbsp;(2013秋)</SPAN></TD></TR>
+  <TR>
+    <TD colSpan=2>
+      <HR>
+    </TD></TR></TBODY></TABLE><BR>
+<TABLE cellSpacing=0 cellPadding=10 width=640 border=0>
+  <TBODY>
+  <TR>
+    <TD vAlign=top width=480>
+      <H3>编程作业: OpenGL格网显示（ Mesh Viewer）一周</H3>
+      <P>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 在本次作业中, 需要实现一个简单的3D格网显示。所编写的程序除了显示物体的模型外，还要能让用户改变光的位置和物体的颜色。</P>
+      <HR>
+
+      <H4>开始</H4>
+      <P>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 首先，可以打开在“作业0”目录下示例程序，:</P>
+      <P>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 这是VC6的一个工程，当然知道大家用的都是2010。但工程中只有一个CPP源程序，所以很容易构建你所喜欢编程环境的工程。该程序显示一个茶壶teapot。嗯，看起来，有点意思，不过好象还缺些什么，好吧，你的任务就是把缺的东西补起来，让它变得更有趣一些。<P>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+      这个程序直接在你的环境下可能编译不通。主要是要安装GLUT函数库。方法如下：<P>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+      将GLUT目录下的<P>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; glut32.dll 复制到 %WinDir%\System,
+      <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; glut32.lib 复制到你的编译器环境中的lib中<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; glut.h&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+      复制到你的编译环境中的 \include\GL 
+      <P>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp。<P>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+      做好以上工作后，可以再编译一次，应该就能通过了。 
+      <HR>
+
+      <H4>作业要求（Requirements）</H4>
+      <H5>改变颜色Color Changes</H5>
+      <P>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 增加改变模型颜色的功能. 现在的颜色设置为[0.5, 0.5, 0.9] (RGB，红绿蓝), 
+      是一种乏味的淡蓝色. 
+      你的任务是增加功能，每当按下 <TT>c</TT>键时在几种颜色间切换 (具体选何种颜色是你的自由). 如何处理键盘事件呢? 
+      请注意在程序运行时，当你按下某键时，控制台会显示类似下面的信息：</P>
+      <BLOCKQUOTE><PRE>Unhandled key press h.
+Unhandled key press e.
+Unhandled key press l.
+Unhandled key press l.
+Unhandled key press o.</PRE></BLOCKQUOTE>
+      <P>打印上面信息的代码在<TT>keyboardFunc</TT>函数中。修改该函数代码来正确处理<TT>c</TT>按键。一种可能的方式是每次按下c键，增加某个全局记数变量，然后在<TT>drawScene</TT>函数中使用该变量来选择颜色。注意在GLUT调用<TT>keyboardFunc</TT>函数后，不会立即重画场景（即你要的颜色不会立即出现），为此，你需要在<TT>keyboardFunc</TT>函数的最后调用<TT>glutPostRedisplay()</TT>来更新显示。</P>
+      <H5>改变光源位置</H5>
+      <P>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 增加改变光源位置的功能. 程序代码中光源位置在[1.0, 1.0, 5.0]. 
+      编写程序，使用箭头键改变光源的位置. 具体来说，左/右箭头键将增/减X值0.5, 上/下箭头改变Y值。可以用前面建议的类似办法来实现。</P>
+      <H5>格网装入和显示</H5>
+      <P>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 一旦完成上面的要求, 我们将进入比较困难的部分: 
+      装入新的对象。在程序目录中，我们提供了几个OBJ格式的3D格网数据。你的工作是编写代码装入并显示这些文件。OBJ文件是一种相对标准的格式，这种格式可以描绘各种形状, 
+      你需要处理其一个子集的功能。.</P>
+      <P>让我们来看一下<TT>cube.obj</TT>. 这个文件不很大，内容如下：</P>
+      <BLOCKQUOTE><PRE>v -1 -1 -1
+v 1 -1 -1
+v -1 1 -1
+v 1 1 -1
+v -1 -1 1
+v 1 -1 1
+v -1 1 1
+v 1 1 1
+f 1 3 4
+f 1 4 2
+f 5 6 8
+f 5 8 7
+f 1 2 6
+f 1 6 5
+f 3 7 8
+f 3 8 4
+f 1 5 7
+f 1 7 3
+f 2 4 8
+f 2 8 6
+
+</PRE></BLOCKQUOTE>
+      <P>每一行都以记号开始，然后是一些参数。<TT>以v</TT> 开始的表示结点（<EM>vertices</EM>），以<TT>f</TT>开始的表示（三角形）面 <EM>faces</EM>。还有其他类型的线，你的代码可以忽略这些。</P>
+      <P>首先是将所有结点(v)读入到向量中(或者其他可以快速访问第i个元素的数据结构). </P>
+      <P>理解面(<TT>f</TT>) 可能困难一些。每个面用如下三个数定义 <I>a b c</I>. 这三数分别是结点的编号。更一般的OBJ格式会更复杂一些，还允许任意多个结点，你只用处理三角形。</P>
+      <P>下面，我们假定你已经读入了所有的结点和法向量并存储在<TT>vArr</TT>和<TT>nArr</TT>中。然后就可以用下面的代码来画这些三角形了。</P>
+      <BLOCKQUOTE><PRE>glBegin(GL_TRIANGLES);
+glVertex3d(vArr[a-1][0], vArr[a-1][1], vArr[a-1][2]);
+glVertex3d(vArr[b-1][0], vArr[b-1][1], vArr[b-1][2]);
+glVertex3d(vArr[c-1][0], vArr[c-1][1], vArr[c-1][2]);
+glEnd();</PRE></BLOCKQUOTE>
+      <P>你应该知道为什么都要减1吧。原因是OBJ文件的结点标号从1开始, 而C/C++的下标从0开始。实现这些后，下面的就很直接了，你只需要对所有面循环画图，完成格网。 </P>
+      <P>对于读入的数据也许你需要保存下来，因为不仅在画图时临时需要这些数据，而且一旦窗口被遮住或改变大小后，OpenGL可能需要重画模型，另外在改变颜色和光照后也可能需要。</P>
+      <P>你最后的执行文件可以将OBJ文件作为命令行的标准输入：</P>
+      <BLOCKQUOTE><TT>./a0 &lt; sphere.obj</TT></BLOCKQUOTE>
+      <P>在C++中使用标准库函数即可(<TT>iostream</TT>)。 示例代码如下，读入四个数：</P>
+      <P>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; char ch;int a,b,c; </P>
+      <P>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; cin&gt;&gt;ch&gt;&gt;a&gt;&gt;b&gt;&gt;c;</P>
+      <HR>
+
+      <H4>附加分</H4>
+      <P>&nbsp;&nbsp;&nbsp;&nbsp; 
+      想让你的项目更炫一些，下面是一些想法。附加分值依赖于问题的难度。另外，你也可以自创一些想法来获得附加分!&nbsp; </P>
+      <H5>易</H5>
+      <UL>
+        <LI>按下r键后，自动旋转模型。(参考<TT>glutTimerFunc</TT>). <!-- 1ec -->
+        <LI>使用OpenGL的显示列表（lists）或者结点缓冲对象（VBO：vertex buffer 
+        objects）来实现高速渲染。<!-- 1ec --> 
+        <LI>修改代码，当按下<TT>c键</TT> 时，颜色从当前色光滑渐变到目标色(而不直接切换成目标色).<!-- 1ec --> 
+        </LI></UL>
+      <H5>中等难度</H5>
+      <UL>
+        <LI>实现基于mouse的相机控制，让用户旋转和缩放目标。附加分的多少依赖于实现的质量。<!-- 2-4ec --> </LI></UL>
+      <H5>困难</H5>
+      <UL>
+        <LI>
+        大规模格网的处理和显示是比较困难。对于交互式应用（如游戏），通常有必要在不牺牲很大质量的前提下，尽量减化格网。实现一种格网减化方法，如文献 <A 
+        href="http://graphics.cs.uiuc.edu/~garland/papers/quadrics.pdf">Surface 
+        Simplification Using Quadric Error Metrics</A> (Garland and Heckbert, 
+        SIGGRAPH 97)中描述的。. <!-- 30ec --></LI></UL>
+      <HR>
+
+      <H4>提交</H4>
+      <P>&nbsp;&nbsp;&nbsp;&nbsp; 最后，编写<TT>README.txt</TT>文件，回答下列问题：</P>
+      <UL>
+        <LI>是否与其他同学合作? 如果是，请让我们知道你和谁交谈，以及你受到他们的什么帮助或者给予了别人什么帮助。 
+        <LI>你是否找到一些对完成该作业特别有用的参考资料(书, 文章, 网站等)，如果有请列出清单。<LI>所提交的程序有已知BUG吗? 
+        如果有，请列出清单,并尽可能描述产生的原因，及如果有时间你如何修正他们。<I>这对我们评价你的工作，给你部分分值是非常重要的。</I> 
+        <LI>你是否做了附加分的作业? 如果是，请告诉我们如何使用程序的这些附加特性。如果涉及到许多工作，请描述是如何实现的。<LI>
+        希望你对本作业给出一些意见和建议? 
+        如，作业是否太长?太难? 需求不清楚? 作业有意思吧, 或者你恨死它了? 你学到些什么吗，或者这完全是浪费时间? 
+        请完全诚实的说出你的心里话，老师绝对认为你是在帮助他和帮助课程。</LI></UL>
+      <P>如果文本文件不足以表达你的想法，你可以使用WORD或者网页文件，在其中添加你想加的图片。</P>
+      <P>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 作业请提交到老师的QQ邮箱,请压缩成一个文件，并用你的中文姓名+班学号命名该文件。压缩文件中应包含：</P>
+      <UL>
+        <LI>代码（工程）<LI>执行程序<LI>说明文件 <TT>README.txt</TT> 
+        <LI>任何其他对于运行你的程序有帮助的文件。 
+</LI></UL>
+      <P>请按时完成作业。</P></TD></TR>
+  <TR>
+    <TD vAlign=top width=480>
+      &nbsp;</TD></TR></TBODY></TABLE><BR>
+</DIV></BODY></HTML>

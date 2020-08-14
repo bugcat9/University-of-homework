@@ -1,0 +1,20 @@
+﻿  ReadObj.cpp
+  正在生成代码
+  Previous IPDB not found, fall back to full compilation.
+  All 347 functions were compiled because no usable IPDB/IOBJ from previous compilation was found.
+  已完成代码的生成
+glut32.lib(glut32.dll) : error LNK2026: 模块对于 SAFESEH 映像是不安全的。
+glut32.lib(glut32.dll) : error LNK2026: 模块对于 SAFESEH 映像是不安全的。
+glut32.lib(glut32.dll) : error LNK2026: 模块对于 SAFESEH 映像是不安全的。
+glut32.lib(glut32.dll) : error LNK2026: 模块对于 SAFESEH 映像是不安全的。
+glut32.lib(glut32.dll) : error LNK2026: 模块对于 SAFESEH 映像是不安全的。
+glut32.lib(glut32.dll) : error LNK2026: 模块对于 SAFESEH 映像是不安全的。
+glut32.lib(glut32.dll) : error LNK2026: 模块对于 SAFESEH 映像是不安全的。
+glut32.lib(glut32.dll) : error LNK2026: 模块对于 SAFESEH 映像是不安全的。
+glut32.lib(glut32.dll) : error LNK2026: 模块对于 SAFESEH 映像是不安全的。
+glut32.lib(glut32.dll) : error LNK2026: 模块对于 SAFESEH 映像是不安全的。
+glut32.lib(glut32.dll) : error LNK2026: 模块对于 SAFESEH 映像是不安全的。
+glut32.lib(glut32.dll) : error LNK2026: 模块对于 SAFESEH 映像是不安全的。
+glut32.lib(glut32.dll) : error LNK2026: 模块对于 SAFESEH 映像是不安全的。
+glut32.lib(glut32.dll) : error LNK2026: 模块对于 SAFESEH 映像是不安全的。
+E:\Filesave\Vscode\ReadObj\Release\ReadObj.exe : fatal error LNK1281: 无法生成 SAFESEH 映像。

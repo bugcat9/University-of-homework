@@ -1,0 +1,139 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<!-- saved from url=(0079)http://groups.csail.mit.edu/graphics/classes/6.837/F04/assignments/assignment0/ --><HTML><HEAD><TITLE>6.837 Assignment 0</TITLE>
+<META http-equiv=Content-Type content="text/html; charset=iso-8859-1">
+<META content="Microsoft FrontPage 5.0" name=GENERATOR></HEAD>
+<BODY text=#000000 bgColor=#ffffff background=Assignment1.files/blbkgnd.gif>
+<H1>Intro to Computer Graphics<BR>Assignment 1: Iterated Function Systems</H1>
+<P>The goal of this assignment is to get familiar with C++ and with two simple 
+libraries that we will use for linear algebra and images. The incidental goal is 
+also to have fun with bizarre fractal objects. IFS are self-similar fractals: a 
+subpart of the object is similar to the whole. The classic example of an IFS is 
+Barnsley's fern, where each subpart of the fern is exactly the same as the whole 
+fern. IFS are described by a set of affine transformations (rotations, 
+translations, scale, skew, etc.) These transformations capture the 
+self-similarity of the object. IFS can be defined in any dimension, but we will 
+play with two-dimensional ones. Formally, an IFS is defined by <EM>n</EM> affine 
+transformations. Each transformation <EM>f<SUB>i</SUB></EM> must be contractive: 
+The distance between points must be reduced. An <EM>attractor</EM> of the IFS is 
+the object such that <EM>A = U f<SUB>i</SUB> (A)</EM>. <EM>A</EM> is unchanged 
+by the set of transformations: It is a fixed point. 
+<P><IMG height=300 src="Assignment1.files/fern_illustration_small.jpg" 
+width=400> 
+<P>We render an IFS by iterating the transform on random input points from the 
+unit square. We approximate the fixed point by applying the transformation many 
+times. The algorithm is as follows: <PRE>   for "lots" of random points (x<SUB>0</SUB>, y<SUB>0</SUB>)
+       for k=0 to num_iters<SUB>&nbsp;</SUB>
+           pick a random transform f<SUB>i</SUB>
+           (x<SUB>k+1</SUB>, y<SUB>k+1</SUB>) = f<SUB>i</SUB>(x<SUB>k</SUB>, y<SUB>k</SUB>)
+       display a dot at (x<SUB>k</SUB>, y<SUB>k</SUB>)
+</PRE>
+<P>To reduce the number of points necessary to make an image of reasonable 
+quality, probabilities are assigned to each transformation, instead of choosing 
+a transformation with uniform probability. 
+<H3>Tasks</H3>
+<UL>
+  <LI>Write a C++ class <TT>IFS</TT> that renders iterated function systems, 
+  including the interface (in a file <TT>ifs.h</TT>) and the implementation 
+  (<TT>ifs.C</TT>). Your code should run under Linux or Windows. The IFS class 
+  should include: 
+  <UL>
+    <LI>a field to store <EM>n</EM>, the number of transformations 
+    <LI>an array of matrices representing the <EM>n</EM> transformations 
+    <LI>an array of the corresponding probabilities for choosing a 
+    transformation 
+    <LI>a constructor that creates an IFS 
+    <LI>an input method that reads the IFS description 
+    <LI>a render method that takes as input an image instance, a number of 
+    points and a number of iterations 
+    <LI>a destructor that frees the memory of the various arrays (using 
+    <TT>delete</TT>) </LI></UL>
+  <LI>Write the main program <TT>main.C</TT> that creates an <TT>Image</TT> 
+  instance, reads an IFS description from a file, renders the IFS to the image, 
+  and saves the image. 
+  <LI>Use the linear algebra library for the point and transformation 
+  representations. 
+  <LI>Perform proper memory management --- free memory when an object is 
+  destroyed. 
+  <LI>Extra credit: create a new IFS, figure out the probabilities, determine 
+  the bounding box, change the color scheme, anti-aliasing, depth-first vs. 
+  breadth-first, etc. Include a short paragraph in your <TT>README.txt</TT> file 
+  describing your extensions. </LI></UL>
+<H3>Hints</H3>
+<UL>
+  <LI>Random numbers can be obtained using the <TT>drand48()</TT> or 
+  <TT>rand()</TT>, and <TT>RAND_MAX</TT>. See <TT>stdlib.h</TT>. 
+  <LI>To debug your code, set the number of iterations to one. This will allow 
+  you to check that you got the transformations right. 
+  <LI>Be careful, arrays are indexed from 0 to <EM>n-1</EM> in C++. Reading 
+  beyond the bounds of the array will probably result in a segmentation fault. 
+  <LI>Use <TT>assert()</TT> to check function pre-conditions, array indices, 
+  etc. See <TT>assert.h</TT>. </LI></UL>
+<H3>Additional references</H3>
+<UL>
+  <LI>M.Barnsley, Fractals Everywhere, Academic Press, 1988. 
+  <LI><A 
+  href="http://spanky.triumf.ca/www/fractal-info/ifs-type.htm">http://spanky.triumf.ca/www/fractal-info/ifs-type.htm</A> 
+
+  <LI><A 
+  href="http://www.cut-the-knot.org/ctk/ifs.shtml">http://www.cut-the-knot.org/ctk/ifs.shtml</A> 
+  </LI></UL>
+<H3>Image Library</H3>The <TT>Image</TT> class is used to initialize and edit 
+the rgb values of images. Be careful --- do not try to edit values outside the 
+bounds of the image. The class also includes functions for loading and saving 
+simple <TT>.tga</TT> image files. <TT>.tga</TT> files can be viewed with 
+<TT>xv</TT> or opened in Photoshop and other Windows image viewers/editors. 
+<UL>
+  <LI><a href="Assignment1.files/image.h">image.h</a> 
+  <LI><a href="Assignment1.files/image.C">image.C</a> 
+</LI></UL>
+<H3>Linear Algebra Library</H3>Linear algebra support for floating point vectors 
+with 2, 3, and 4 elements (<TT>Vec2f</TT>, <TT>Vec3f</TT>, and <TT>Vec4f</TT>) 
+and 4x4 floating point matrices (<TT>Matrix</TT>). For this assignment, the 
+<TT>void Matrix::Transform(Vec2f &amp;v)</TT> function will be handy. 
+<UL>
+  <LI><a href="Assignment1.files/vectors.h">vectors.h</a> 
+  <LI><a href="Assignment1.files/matrix.h">matrix.h</a> 
+  <LI><a href="Assignment1.files/matrix.C">matrix.C</a> 
+  </LI></UL>
+<H3>Sample code for parsing command-line arguments and input files</H3>Your 
+program should take a number of command line arguments to specify the input 
+file, number of points, number of iterations, output image size and output file. 
+Make sure the examples below work, as this is how we will test your program. 
+Sample code to parse input files and command line arguments is provided: 
+<UL>
+  <LI><a href="Assignment1.files/parse_code.txt">parse_code.txt</a> 
+  </LI></UL>
+<H3>Data files</H3>The input data for an IFS is a file which contains 
+<EM>n</EM>, the number of transforms, followed by the probability of choosing 
+each transform and a 3x3 floating point matrix representation of the transform. 
+<UL>
+  <LI><a href="Assignment1.files/fern.txt">fern.txt</a> 
+  <LI><a href="Assignment1.files/dragon.txt">dragon.txt</a> 
+
+  <LI><a href="Assignment1.files/sierpinski_triangle.txt">sierpinski_triangle.txt</a> 
+
+  <LI><a href="Assignment1.files/giant_x.txt">giant_x.txt</a> 
+  </LI></UL>
+<H3>Makefile for g++ on LINUX</H3>
+<UL>
+  <LI><a href="Assignment1.files/Makefile.txt">Makefile</a> 
+  </LI></UL>
+<H3>Sample Results</H3><PRE>ifs -input sierpinski_triangle.txt -points 10000 -iters 0 -size 200 -output sierpinski_triangle_0.tga
+ifs -input sierpinski_triangle.txt -points 10000 -iters 1 -size 200 -output sierpinski_triangle_1.tga
+ifs -input sierpinski_triangle.txt -points 10000 -iters 2 -size 200 -output sierpinski_triangle_2.tga
+ifs -input sierpinski_triangle.txt -points 10000 -iters 3 -size 200 -output sierpinski_triangle_3.tga
+ifs -input sierpinski_triangle.txt -points 10000 -iters 4 -size 200 -output sierpinski_triangle_4.tga
+ifs -input sierpinski_triangle.txt -points 10000 -iters 30 -size 200 -output sierpinski_triangle.tga
+</PRE><IMG height=200 src="Assignment1.files/sierpinski_triangle_0.png" 
+width=200> <IMG height=200 src="Assignment1.files/sierpinski_triangle_1.png" 
+width=200> <IMG height=200 src="Assignment1.files/sierpinski_triangle_2.png" 
+width=200><BR><IMG height=200 src="Assignment1.files/sierpinski_triangle_3.png" 
+width=200> <IMG height=200 src="Assignment1.files/sierpinski_triangle_4.png" 
+width=200> <IMG height=200 src="Assignment1.files/sierpinski_triangle.png" 
+width=200> <PRE>ifs -input fern.txt -points 50000 -iters 30 -size 400 -output fern.tga
+</PRE><IMG height=400 src="Assignment1.files/fern.png" width=400> 
+<P>See the main <A 
+href="http://groups.csail.mit.edu/graphics/classes/6.837/F04/assignments/index.html">Assignments 
+Page</A> for submission information. 
+<HR>
+</BODY></HTML>
