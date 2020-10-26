@@ -1,0 +1,466 @@
+﻿<!doctype html>
+<html lang="en">
+<head>
+  <!-- <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="theme-color" content="#000000">
+    manifest.json provides metadata used when your web app is added to the
+    homescreen on Android. See https://developers.google.com/web/fundamentals/engage-and-retain/web-app-manifest/
+  -->
+  <!-- <link rel="manifest" href="%PUBLIC_URL%/manifest.json">
+  <link rel="shortcut icon" href="%PUBLIC_URL%/favicon.ico"> -->
+  <!--
+    Notice the use of %PUBLIC_URL% in the tags above.
+    It will be replaced with the URL of the `public` folder during the build.
+    Only files inside the `public` folder can be referenced from the HTML.
+
+    Unlike "/favicon.ico" or "favicon.ico", "%PUBLIC_URL%/favicon.ico" will
+    work correctly both with client-side routing and a non-root public URL.
+    Learn how to configure a non-root public URL by running `npm run build`.
+  -->
+  <meta charset="UTF-8">
+      <link rel="stylesheet" href="https://gw.alipayobjects.com/os/rmsportal/PqLCOJpqoOUfuPRacUzE.css" />
+    <style> ::-webkit-scrollbar{display:none;}html,body{overflow:hidden;margin:0;}
+    	#map { position:absolute; top:0; bottom:0; width:100%; }
+    </style>
+  <title>React App</title>
+  <style>
+    html,
+    body {
+        overflow: hidden;
+        margin: 0;
+    }
+
+    #map {
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        width: 50%;
+        height:100%;
+    }
+
+    #Radar{
+        position: absolute;
+        top: 50%;
+        left: 1000px;
+        width: 40%;
+        height:50%;
+    }
+    #picture{
+        position: absolute;
+        top: 65%;
+        left: 800px;
+        width: 40%;
+        height:50%;
+    }
+    #image{
+        position: absolute;
+        top: 0;
+        left: 800px;
+        width: 50%;
+        height:30%;
+    }
+	#image1{
+        position: absolute;
+        top: 0;
+        left: 800px;
+        width: 50%;
+        height:20%;
+    }
+</style>
+</script>
+</head>
+<body>
+
+
+<div id="map" ></div></div>
+<script>/*Fixing iframe window.innerHeight 0 issue in Safari*/ document.body.clientHeight; </script>
+<script src="https://webapi.amap.com/maps?v=1.4.8&key=1b068399806fcc984ff7fa3fe362aff1&plugin=Map3D"></script>
+<script src="https://gw.alipayobjects.com/os/antv/assets/lib/jquery-3.2.1.min.js"></script>
+<script src="https://gw.alipayobjects.com/os/antv/pkg/_antv.l7-1.3.0-beta.4/build/L7-min.js"></script>
+<script src="https://gw.alipayobjects.com/os/antv/pkg/_antv.g2-3.5.1/dist/g2.min.js"></script>
+<script src="./src/index.js"></script>
+<style>
+.infolegend {
+	padding: 6px 8px;
+	font: 14px/16px Arial, Helvetica, sans-serif;
+	background: white;
+	background: rgba(255,255,255,0.8);
+	box-shadow: 0 0 15px rgba(0,0,0,0.2);
+	border-radius: 5px
+}
+.infolegend h4 {
+	margin: 0 0 5px;
+	color: #777;
+}
+.legend {
+	line-height: 18px;
+	color: #555;
+}
+.legend i {
+	width: 18px;
+	height: 18px;
+	float: left;
+	margin-right: 8px;
+	opacity: 0.7;
+}
+</style>
+<script>
+ //主地图
+  var scene = new L7.Scene({
+    id: 'map',
+    mapStyle: 'dark', // 样式URL
+    center: [114.47590590,30.48983585],
+    pitch: 60,
+    zoom: 11,
+    rotation: 4.183582
+  });
+  window.scene = scene;
+   var colors = ["#FFF5B8", "#FFDC7D", "#FFAB5C", "#F27049", "#D42F31", "#730D1C"];
+  scene.on('loaded', function() {
+    $.get('./all_avg_3vgg.json', function(data) {
+    var layerbea=  scene.PointLayer({
+        zIndex: 2
+      }).source(data, {
+        parser: {
+          type: 'json',
+          x: 'longitude',
+          y: 'latitude'
+        }
+      }).shape('cylinder').size('beatiful', function(level) {
+        return [2, 2, Math.exp(level/9)];
+      }).active(true).color('beatiful', colors).render();
+
+    var layerbor=  scene.PointLayer({
+          zIndex: 2
+        }).source(data, {
+          parser: {
+            type: 'json',
+            x: 'longitude',
+            y: 'latitude'
+          }
+        }).shape('cylinder').size('boring', function(level) {
+          return [2, 2, Math.exp(level/11)];
+        }).active(true).color('boring', colors).render();
+
+        var layerdep=  scene.PointLayer({
+              zIndex: 2
+            }).source(data, {
+              parser: {
+                type: 'json',
+                x: 'longitude',
+                y: 'latitude'
+              }
+            }).shape('cylinder').size('depressing', function(level) {
+              return [2, 2, Math.exp(level/13)];
+            }).active(true).color('depressing', colors).render();
+
+            var layerliv=  scene.PointLayer({
+                  zIndex: 2
+                }).source(data, {
+                  parser: {
+                    type: 'json',
+                    x: 'longitude',
+                    y: 'latitude'
+                  }
+                }).shape('cylinder').size('lively', function(level) {
+                  return [2, 2, Math.exp(level/9)];
+                }).active(true).color('lively', colors).render();
+
+                var layersaf=  scene.PointLayer({
+                      zIndex: 2
+                    }).source(data, {
+                      parser: {
+                        type: 'json',
+                        x: 'longitude',
+                        y: 'latitude'
+                      }
+                    }).shape('cylinder').size('safety', function(level) {
+                      return [2, 2, Math.exp(level/9)];
+                    }).active(true).color('safety', colors).render();
+
+                    var layerwel=  scene.PointLayer({
+                          zIndex: 2
+                        }).source(data, {
+                          parser: {
+                            type: 'json',
+                            x: 'longitude',
+                            y: 'latitude'
+                          }
+                        }).shape('cylinder').size('wealthy', function(level) {
+                          return [2, 2, Math.exp(level/10)];
+                        }).active(true).color('wealthy', colors).render();
+          //图层控制
+          var overlayers = {
+            "beatiful":layerbea,
+            "boring": layerbor,
+              "depressing": layerdep,
+              "lively":layerliv,
+              "safety":layersaf,
+              "wealth":layerwel
+            };
+            new L7.Control.Layers({
+              overlayers: overlayers
+            }).addTo(scene);
+
+        //popup
+
+
+        var popup = new L7.Popup();
+        layerbea.on('mousemove', function(e) {
+            var lnglat = e.lnglat,
+            feature = e.feature;
+            //pict(lnglat.lng+ '_'+lnglat.lat+".png);
+            var url = './VID_20191212_100933_/'+feature.ImageName+'.png';
+            pict(url);
+           changer(e.featureId);
+                 var html = '\n        <p>'+'beatiful:' + feature.beatiful + '</p>\n        <p>'+'经纬度:[' + lnglat.lng+', '+lnglat.lat+']'+ '</p>';
+
+            popup.setLnglat([lnglat.lng, lnglat.lat]).setHTML(html).addTo(scene);
+          });
+
+          layerbor.on('mousemove', function(e) {
+              var lnglat = e.lnglat,
+              feature = e.feature;
+              // pict(lnglat.lng+ '_'+lnglat.lat+".png");
+			   var url = './VID_20191212_100933_/'+feature.ImageName+'.png';
+            pict(url);
+              changer(e.featureId);
+             var html = '\n        <p>'+'boring:' + feature.boring + '</p>\n        <p>'+'经纬度:[' + lnglat.lng+', '+lnglat.lat+']'+ '</p>';
+                popup.setLnglat([lnglat.lng, lnglat.lat]).setHTML(html).addTo(scene);
+            });
+            layerdep.on('mousemove', function(e) {
+                var lnglat = e.lnglat,
+                feature = e.feature;
+                // pict(lnglat.lng+ '_'+lnglat.lat+".png");
+				 var url = './VID_20191212_100933_/'+feature.ImageName+'.png';
+            pict(url);
+               changer(e.featureId);
+                var html = '\n        <p>'+'depressing:' + feature.depressing + '</p>\n        <p>'+'经纬度:[' + lnglat.lng+', '+lnglat.lat+']'+ '</p>';
+
+                popup.setLnglat([lnglat.lng, lnglat.lat]).setHTML(html).addTo(scene);
+              });
+            //
+              layerliv.on('mousemove', function(e) {
+                  var lnglat = e.lnglat,
+                  feature = e.feature;
+                  // pict(lnglat.lng+ '_'+lnglat.lat+".png");
+				   var url = './VID_20191212_100933_/'+feature.ImageName+'.png';
+					pict(url);
+                 changer(e.featureId);
+                 var html = '\n        <p>'+'lively:' + feature.lively + '</p>\n        <p>'+'经纬度:[' + lnglat.lng+', '+lnglat.lat+']'+ '</p>';
+
+                  popup.setLnglat([lnglat.lng, lnglat.lat]).setHTML(html).addTo(scene);
+                });
+            //
+                layersaf.on('mousemove', function(e) {
+                    var lnglat = e.lnglat,
+                    feature = e.feature;
+                    // pict(lnglat.lng+ '_'+lnglat.lat+".png");
+					 var url = './VID_20191212_100933_/'+feature.ImageName+'.png';
+					pict(url);
+                   changer(e.featureId);
+                    var html = '\n        <p>'+'safety:' + feature.beatiful + '</p>\n        <p>'+'经纬度:[' + lnglat.lng+',' +lnglat.lat+']'+ '</p>';
+
+                    popup.setLnglat([lnglat.lng, lnglat.lat]).setHTML(html).addTo(scene);
+                  });
+
+                  layerwel.on('mousemove', function(e) {
+                      var lnglat = e.lnglat,
+                      feature = e.feature;
+          //            pict(lnglat.lng+ '_'+lnglat.lat+".png");
+		   var url = './VID_20191212_100933_/'+feature.ImageName+'.png';
+            pict(url);
+                     changer(e.featureId);
+                      var html = '\n        <p>'+'wealth:' + feature.beatiful + '</p>\n        <p>'+'经纬度:[' + lnglat.lng+',' +lnglat.lat+']'+ '</p>';
+
+                      popup.setLnglat([lnglat.lng, lnglat.lat]).setHTML(html).addTo(scene);
+                    });
+
+     //图例
+    
+    });
+  });
+</script>
+
+<div id="Radar" >
+<script src="https://gw.alipayobjects.com/os/antv/pkg/_antv.g2-3.5.1/dist/g2.min.js"></script>
+<script>
+const chart = new G2.Chart({
+  container: 'Radar',
+  forceFit: true,
+  height: 500
+});
+
+function changer(i){
+  fetch(
+    './all_vggnew.json'
+  )
+    .then(res => res.json())
+    .then(resjson => {
+       var data = resjson;
+     var ndata = [
+       {'type': 'boring','score':data[i].boring},
+       {'type': 'depressing','score':data[i].depressing},
+       {'type': 'lively','score':data[i].lively},
+       {'type': 'safety','score':data[i].safety},
+       {'type': 'wealthy','score':data[i].wealthy},
+       {'type': 'beatiful','score':data[i].beatiful}
+     ];
+  chart.source(ndata);
+  chart.coord('polar');
+  chart.legend({
+    position: 'right',
+    offsetY: -500 / 2 + 180,
+    offsetX: -140
+  });
+  chart.axis(false);
+  chart.interval().position('type*score')
+    .color('type', G2.Global.colors_pie_16)
+    .style({
+      lineWidth: 1,
+      stroke: '#fff'
+    });
+  chart.render();
+  })
+}
+changer(0);
+</script>
+</div>
+ <div id="image" style="display:block">
+	<a  onclick = "changeimage1()"> 缩略时序图 </a>
+	<script>
+		function changeimage1(){
+			$('#image').hide();
+			$('#image1').show();
+		}
+	</script>
+  <script src="https://gw.alipayobjects.com/os/antv/pkg/_antv.g2-3.5.1/dist/g2.min.js"></script>
+  <script>
+  const data = [];
+  const gisdata = [];
+  var curdeal = 0;
+  const chart1 = new G2.Chart({
+    container: 'image',
+    forceFit: true,
+    height: 350
+  });
+  chart1.source(data, {
+    time: {
+      alias: '时间',
+      //type: 'time',
+      //mask: 'HH:mm:ss',
+      tickCount: 10,
+      nice: false
+    },
+    score: {
+      alias: '分数',
+      min: 10,
+      max: 70
+    },
+    type: {
+      type: 'cat'
+    }
+  });
+  chart1.line()
+    .position('time*score')
+    .color('type',  G2.Global.colors_pie_16)
+    .shape('smooth')
+    .size(2);
+  chart1.render();
+  setInterval(function() {
+    fetch(
+      './all_avg_3_timevgg.json'
+    )
+      .then(res => res.json())
+      .then(resjson => {
+         gisdata.push(resjson[curdeal+0]);
+         gisdata.push(resjson[curdeal+1]);
+         gisdata.push(resjson[curdeal + 2]);
+         gisdata.push(resjson[curdeal + 3]);
+         gisdata.push(resjson[curdeal + 4]);
+         gisdata.push(resjson[curdeal + 5]);
+         curdeal = curdeal + 6;
+
+      });
+	const time = gisdata[0].time;
+    const temperature1 = parseInt(gisdata[0].score);
+    const temperature2 =  parseInt(gisdata[1].score);
+    const temperature3 =  parseInt(gisdata[2].score);
+    const temperature4 =  parseInt(gisdata[3].score);
+    const temperature5 =  parseInt(gisdata[4].score);
+    const temperature6 =  parseInt(gisdata[5].score);
+    if (data.length >= 200) {
+      data.shift();
+      data.shift();
+      data.shift();
+      data.shift();
+      data.shift();
+      data.shift();
+    }
+    data.push({
+      time:time,
+      score: temperature1,
+      type: gisdata[0].type
+    });
+    data.push({
+      time:time,
+      score: temperature2,
+      type: gisdata[1].type
+    });
+    data.push({
+      time:time,
+      score: temperature3,
+      type: gisdata[2].type
+    });
+    data.push({
+      time:time,
+      score: temperature4,
+      type: gisdata[3].type
+    });
+    data.push({
+      time:time,
+      score: temperature5,
+      type: gisdata[4].type
+    });
+    data.push({
+      time:time,
+      score: temperature6,
+      type: gisdata[5].type
+    });
+    chart1.changeData(data);
+    var url = './VID_20191212_100933_/'+gisdata[0].ImageName+'.png';
+    pict(url );
+    gisdata.shift();
+    gisdata.shift();
+    gisdata.shift();
+    gisdata.shift();
+    gisdata.shift();
+    gisdata.shift();
+  }, 1000);
+  </script>
+</div>
+
+<div id="picture" >
+  <img id ='curimg'src="./VID_20191212_100933_/114.40469786_30.48477843.png" />
+    <script>
+      function pict(url){
+        document.getElementById("curimg").src = url;
+      }
+    </script>
+</div>
+
+<div id="image1" style = "display:none">
+	<a  onclick = "changeimage()"> 流动时序图 </a>
+	<script>
+		function changeimage(){
+			$('#image1').hide();
+			$('#image').show();
+		}
+	</script>
+<script>
+
+</script>
+</div>
+</body>
+</html>

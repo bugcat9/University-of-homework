@@ -1,0 +1,84 @@
+
+SQL*Plus: Release 11.2.0.1.0 Production on 星期六 11月 30 20:45:19 2019
+
+Copyright (c) 1982, 2010, Oracle.  All rights reserved.
+
+
+连接到: 
+Oracle Database 11g Enterprise Edition Release 11.2.0.1.0 - 64bit Production
+With the Partitioning, OLAP, Data Mining and Real Application Testing options
+
+
+过程已创建。
+
+
+过程已创建。
+
+
+过程已创建。
+
+
+过程已创建。
+
+
+过程已创建。
+
+
+过程已创建。
+
+
+过程已创建。
+
+
+过程已创建。
+
+
+过程已创建。
+
+
+过程已创建。
+
+
+过程已创建。
+
+
+过程已创建。
+
+
+过程已创建。
+
+
+过程已创建。
+
+
+过程已创建。
+
+
+过程已创建。
+
+
+视图已创建。
+
+SP2-0734: 未知的命令开头 "FROM ANIMA..." - 忽略了剩余的行。
+SP2-0734: 未知的命令开头 "WHERE HEAL..." - 忽略了剩余的行。
+SP2-0734: 未知的命令开头 "HEALTH_CHE..." - 忽略了剩余的行。
+SP2-0042: 未知命令 ")" - 其余行忽略。
+SP2-0044: 要获取已知命令的列表, 请输入 HELP;
+输入 EXIT 可退出。
+      HEALTH_CHECK_INFORMATION.HEALTH_INFORMATION,TO_CHAR(HEALTH_CHECK_INFORMATION.CHECK_DATE,'YYYY-MM-DD')CHECK_DATE,HEALTH_CHECK_INFORMATION.REMARKS
+                                                                                                                                                     *
+第 5 行出现错误:
+ORA-00923: 未找到要求的 FROM 关键字
+
+
+
+视图已创建。
+
+
+视图已创建。
+
+
+视图已创建。
+
+从 Oracle Database 11g Enterprise Edition Release 11.2.0.1.0 - 64bit Production
+With the Partitioning, OLAP, Data Mining and Real Application Testing options 断开

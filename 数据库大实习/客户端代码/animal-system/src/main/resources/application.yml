@@ -1,0 +1,13 @@
+spring:
+  datasource:
+    driver-class-name: oracle.jdbc.OracleDriver
+    url: jdbc:oracle:thin:@127.0.0.1:1521:ORCL
+    username: zhouning
+    password: zn19980921
+
+  jpa:
+   hibernate:
+     ddl-auto: update
+
+  #显示sql
+   show-sql: true

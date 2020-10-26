@@ -1,0 +1,19 @@
+<html> <body>
+<b>Choose a Pet</B>
+<P>
+<form  action="PetServlet" method=post> 
+
+   <h4> preferred weight: </h4>
+        <input type="text"  name="weight"  size="3">
+
+   <h4> number of legs: </h4>
+        <input type="radio"  name="legs"  value="0">
+        0 legs <br>
+
+        <input type="radio"  name="legs"  value="4"  checked>
+        4 legs <br>
+
+        <input type="radio"  name="legs"  value="notsure"  checked>
+        other number <p>
+    <input type="submit" value="send pet data" >
+</form>

@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout  xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".VideoActivity">
+
+
+
+    <SurfaceView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginBottom="60dp"
+        android:id="@+id/sv_media_surface"
+        />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:gravity="center"
+        android:background="@color/black"
+        >
+
+    <ImageButton
+        android:id="@+id/start_video"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/start"
+        />
+
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/longitude_"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="经度:"
+        android:textSize="20dp"
+        android:textColor="@color/blue"
+        />
+    <TextView
+        android:id="@+id/latitude_"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="纬度:"
+        android:textSize="20dp"
+        android:layout_marginTop="25dp"
+        android:textColor="@color/blue"
+        />
+    <TextView
+        android:id="@+id/time_"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="时间:"
+        android:textSize="20dp"
+        android:layout_marginTop="50dp"
+        android:textColor="@color/blue"
+        />
+
+</RelativeLayout >

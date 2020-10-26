@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".activity.FaceAttrPreviewActivity">
+
+    <TextureView
+        android:id="@+id/texture_preview"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+    <com.example.emotion_recognition.widget.FaceRectView
+        android:id="@+id/face_rect_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginBottom="8dp"
+        android:onClick="switchCamera"
+        android:text="@string/switch_camera"
+        app:layout_constraintBottom_toBottomOf="@+id/face_rect_view"
+        app:layout_constraintEnd_toEndOf="@+id/face_rect_view"
+        app:layout_constraintHorizontal_bias="0.483"
+        app:layout_constraintStart_toStartOf="@+id/face_rect_view"
+        app:layout_constraintTop_toTopOf="@+id/face_rect_view"
+        app:layout_constraintVertical_bias="0.971" />
+</android.support.constraint.ConstraintLayout>
