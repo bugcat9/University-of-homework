@@ -49,14 +49,14 @@ public class EmailServiceImp implements EmailService {
     //阿里云发送邮件的代码
     private String sendMsg(String email, String msg){
         IClientProfile profile = DefaultProfile.getProfile("cn-hangzhou",
-                "LTAI4FnFAWu8z3VGdGT8AvTn", "VzH6nHOM1wr3jW9fOj5D19hj3Mjioo");
+                "***************", "*************");
         IAcsClient client = new DefaultAcsClient(profile);
         SingleSendMailRequest request = new SingleSendMailRequest();
 //       BatchSendMailRequest   batchSendMailRequest =new BatchSendMailRequest();
 
         try {
             //request.setVersion("2017-06-22");// 如果是除杭州region外的其它region（如新加坡region）,必须指定为2017-06-22
-            request.setAccountName("zhouning@cugyn.xyz");
+            request.setAccountName("zhou*******************");
             request.setFromAlias("zn");
             request.setAddressType(1);
             //request.setTagName("控制台创建的标签");
